@@ -1,5 +1,5 @@
 // ==========================================
-// EASY DATA ARRAYS
+// EASY DATA ARRAYS (CHISOM'S LIVE PROJECTS)
 // ==========================================
 
 const myMandalaImages = [
@@ -7,9 +7,11 @@ const myMandalaImages = [
 ];
 
 const myProjectsAndSkills = [
+    { title: "Aegis AI Inspector", tag: "AI Security & Tech", link: "https://scholarnwafor73-beep.github.io/Aegis-ai-inspector-/" },
+    { title: "Luxe Multi-Studio", tag: "Creative Studio Architecture", link: "https://scholarnwafor73-beep.github.io/luxe-multi-studio/" },
+    { title: "Luxe Multi-Pitch", tag: "Luxury Pitch Deck Framework", link: "https://scholarnwafor73-beep.github.io/luxe-multi-pitch/" },
     { title: "Chisom-Lab Portfolio", tag: "Live Web Architecture", link: "https://scholarnwafor73-beep.github.io/chisom-lab/" },
-    { title: "HTML5, CSS3 & JavaScript", tag: "Frontend Skill Stack", link: "#" },
-    { title: "GitHub Version Control", tag: "Engineering Workflow", link: "#" }
+    { title: "HTML5, CSS3 & JavaScript", tag: "Frontend Skill Stack", link: "#" }
 ];
 
 // ==========================================
@@ -34,7 +36,6 @@ playBtn.addEventListener('click', async () => {
         }
     } catch (err) {
         console.warn("Retrying playback via fallback...", err);
-        // Force fallback reload if needed
         culturalAudio.load();
         culturalAudio.play().then(() => {
             vinylDisc.classList.add('spinning');
@@ -68,7 +69,7 @@ setInterval(() => {
 }, 6000);
 
 // ==========================================
-// MODAL POPUP SYSTEM
+// MODAL POPUP SYSTEM (STRICT TAP CONTROL)
 // ==========================================
 const mandalaModal = document.getElementById('mandalaModal');
 const labModal = document.getElementById('labModal');
@@ -79,11 +80,16 @@ const openLabBtn = document.getElementById('openLabBtn');
 const closeMandala = document.getElementById('closeMandala');
 const closeLab = document.getElementById('closeLab');
 
-// Render Mandalas with image fallback error handler
+// Render Mandalas (Displays clean custom placeholder if image is missing)
 const mandalaGallery = document.getElementById('mandalaGallery');
 mandalaGallery.innerHTML = myMandalaImages.map(img => `
     <div class="mandala-img-card">
-        <img src="${img.src}" alt="${img.caption}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=400';">
+        <img src="${img.src}" alt="${img.caption}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="mandala-placeholder-box" style="display:none;">
+            <span>🎨</span>
+            <strong>Mandala Sketch Ready</strong>
+            <p>Upload <code>mandala1.jpg</code> to GitHub to showcase your original artwork here.</p>
+        </div>
         <div class="mandala-caption">${img.caption}</div>
     </div>
 `).join('');
@@ -100,12 +106,22 @@ projectsList.innerHTML = myProjectsAndSkills.map(item => `
     </div>
 `).join('');
 
-// Open/Close Listeners
-openMandalaBtn.addEventListener('click', () => mandalaModal.classList.add('active'));
-closeMandala.addEventListener('click', () => mandalaModal.classList.remove('active'));
+// Open/Close Handlers
+openMandalaBtn.addEventListener('click', () => {
+    mandalaModal.classList.add('active');
+});
 
-openLabBtn.addEventListener('click', () => labModal.classList.add('active'));
-closeLab.addEventListener('click', () => labModal.classList.remove('active'));
+closeMandala.addEventListener('click', () => {
+    mandalaModal.classList.remove('active');
+});
+
+openLabBtn.addEventListener('click', () => {
+    labModal.classList.add('active');
+});
+
+closeLab.addEventListener('click', () => {
+    labModal.classList.remove('active');
+});
 
 window.addEventListener('click', (e) => {
     if (e.target === mandalaModal) mandalaModal.classList.remove('active');
