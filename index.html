@@ -3,46 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chisom-Lab | Cultural Sonic Archive</title>
+    <title>Chisom-Lab | Luxury Cultural & Tech Archive</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <canvas id="starfield"></canvas>
 
     <main class="container">
+        <!-- HERO SECTION -->
         <header class="hero">
             <span class="badge">AESTHETIC & TECHNOLOGY</span>
             <h1>CHISOM-LAB</h1>
-            <p class="subtitle">Where ancient Igbo heritage meets high-end frontend craftsmanship.</p>
+            <p class="subtitle">Where ancient Igbo heritage meets elite frontend engineering and digital artistry.</p>
             <div id="proverb-box" class="proverb">"Egwu ma mma, a naa n'uba." — Sound & culture woven into code.</div>
         </header>
 
+        <!-- SECTION 1: THE SONIC ARCHIVE -->
         <section class="archive-card">
             <div class="vinyl-container">
                 <div class="vinyl-disc" id="vinylDisc">
-                    <div class="vinyl-label">CHISOM</div>
+                    <div class="vinyl-label">ODOGWU</div>
                 </div>
             </div>
             
             <div class="archive-info">
                 <h2>Odogwu Sound Archive Vol. I</h2>
-                <p>Ogene & Igbo Cultural Soundscape • Tap to Play</p>
+                <p>Authentic Ogene Percussion & Cultural Hailing</p>
             </div>
 
-            <!-- Preloaded robust audio stream with cross-origin safety -->
             <audio id="culturalAudio" crossorigin="anonymous" preload="auto">
-                <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=african-drums-113200.mp3" type="audio/mpeg">
+                <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8266209.mp3?filename=african-safari-loop-10582.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
             
             <button class="play-btn" id="playBtn" type="button">PLAY ARCHIVE</button>
         </section>
+
+        <!-- SECTION 2: MANDALA & GEOMETRY -->
+        <section class="archive-card secondary-card">
+            <div class="card-icon">🌀</div>
+            <div class="archive-info">
+                <h2>Mandala & Geometry</h2>
+                <p>Intricate hand-drawn pattern sketches transformed into glowing digital expressions.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: FRONTEND LABORATORY -->
+        <section class="archive-card secondary-card">
+            <div class="card-icon">💻</div>
+            <div class="archive-info">
+                <h2>Frontend Laboratory</h2>
+                <p>Built with clean HTML5, CSS3, and JavaScript architecture for real-world client mastery.</p>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>DESIGNED & DEVELOPED BY CHISOM • 2026</p>
+        <p>DESIGNED & DEVELOPED BY CHISOM • ABUJA • 2026</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
