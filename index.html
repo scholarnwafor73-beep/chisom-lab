@@ -57,6 +57,15 @@
             </div>
         </section>
 
+        <!-- NEW BUTTON: CERTIFICATES & CREDENTIALS -->
+        <section class="archive-card secondary-card" id="openCertsBtn">
+            <div class="card-icon">📜</div>
+            <div class="archive-info">
+                <h2>Certificates & Credentials</h2>
+                <p>Tap to verify accredited certifications from IBM, freeCodeCamp, and Coursera.</p>
+            </div>
+        </section>
+
         <!-- VISUAL MODE SELECTOR -->
         <div class="mode-selector">
             <button class="mode-btn active" id="modeStars">✨ Star Dust</button>
@@ -83,6 +92,18 @@
             <h2>Frontend Laboratory</h2>
             <p class="modal-desc">Web engineering projects, code repositories, and technical skills.</p>
             <div class="projects-list" id="projectsList">
+                <!-- Loaded dynamically via script.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: CERTIFICATES & CREDENTIALS -->
+    <div class="modal-overlay" id="certsModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeCerts">&times;</button>
+            <h2>Verified Credentials</h2>
+            <p class="modal-desc">Professional certifications, specialized diplomas, and accredited technical badges.</p>
+            <div class="projects-list" id="certsList">
                 <!-- Loaded dynamically via script.js -->
             </div>
         </div>
