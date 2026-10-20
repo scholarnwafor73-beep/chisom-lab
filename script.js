@@ -1,4 +1,4 @@
-// --- BULLETPROOF AUDIO & VINYL PLAYER ---
+// --- AUDIO & VINYL PLAYER ---
 const playBtn = document.getElementById('playBtn');
 const culturalAudio = document.getElementById('culturalAudio');
 const vinylDisc = document.getElementById('vinylDisc');
@@ -15,12 +15,11 @@ playBtn.addEventListener('click', async () => {
             playBtn.textContent = 'PLAY ARCHIVE';
         }
     } catch (err) {
-        console.error("Playback restriction error:", err);
-        playBtn.textContent = 'TAP TO RETRY';
+        console.error("Playback error:", err);
+        playBtn.textContent = 'TAP AGAIN TO PLAY';
     }
 });
 
-// Clean automatic state reset when audio ends naturally
 culturalAudio.addEventListener('ended', () => {
     culturalAudio.currentTime = 0;
     vinylDisc.classList.remove('spinning');
@@ -47,7 +46,7 @@ setInterval(() => {
     }, 400);
 }, 6000);
 
-// --- OPTIMIZED STARFIELD CANVAS ANIMATION ---
+// --- NEON STARFIELD & DUST CANVAS ANIMATION ---
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
 
@@ -63,27 +62,32 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-const stars = Array.from({ length: 50 }, () => ({
+const colors = ['#00f0ff', '#ff007f', '#ffd700'];
+
+const stars = Array.from({ length: 60 }, () => ({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
-    radius: Math.random() * 1.4 + 0.4,
+    radius: Math.random() * 1.5 + 0.4,
     speed: Math.random() * 0.25 + 0.08,
-    opacity: Math.random()
+    opacity: Math.random(),
+    color: colors[Math.floor(Math.random() * colors.length)]
 }));
 
 function animateStars() {
     ctx.clearRect(0, 0, width, height);
-    
     stars.forEach(star => {
         star.y -= star.speed;
         if (star.y < 0) star.y = height;
-        
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(212, 175, 55, ${star.opacity})`;
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = star.opacity;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = star.color;
         ctx.fill();
     });
-    
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
     requestAnimationFrame(animateStars);
 }
 
