@@ -18,29 +18,29 @@
             <div id="proverb-box" class="proverb">"Egwu ma mma, a naa n'uba." — Sound & culture woven into code.</div>
         </header>
 
-        <!-- SECTION 1: THE SONIC ARCHIVE -->
+        <!-- SECTION 1: THE SONIC ARCHIVE (ANCIENT OJA) -->
         <section class="archive-card">
             <div class="vinyl-container">
                 <div class="vinyl-disc" id="vinylDisc">
-                    <div class="vinyl-label">CHISOM</div>
+                    <div class="vinyl-label">OJA</div>
                 </div>
             </div>
             
             <div class="archive-info">
-                <h2>Odogwu Sound Archive Vol. I</h2>
-                <p>Flavour — Levels (Official Highlife Anthem)</p>
+                <h2>Ancient Oja Archive</h2>
+                <p>Ojazzy Igbonile — Ancient Oja (Cultural Hailing Sound)</p>
             </div>
 
-            <!-- AUDIO PLAYER -->
-            <audio id="culturalAudio" loop preload="auto" crossorigin="anonymous">
-                <source src="song.mp3" type="audio/mpeg">
+            <!-- AUDIO PLAYER (Autoplay, No Loop) -->
+            <audio id="culturalAudio" preload="auto" crossorigin="anonymous">
+                <source src="oja.mp3" type="audio/mpeg">
                 <source src="https://www.zambianmusicpromos.co/wp-content/uploads/Flavour-Levels.mp3" type="audio/mpeg">
             </audio>
             
-            <button class="play-btn" id="playBtn" type="button">PLAY ARCHIVE</button>
+            <button class="play-btn" id="playBtn" type="button">PLAY AGAIN</button>
         </section>
 
-        <!-- INTERACTIVE PORTAL BUTTONS -->
+        <!-- PORTAL BUTTONS -->
         <section class="archive-card secondary-card" id="openMandalaBtn">
             <div class="card-icon">🌀</div>
             <div class="archive-info">
@@ -57,12 +57,27 @@
             </div>
         </section>
 
-        <!-- NEW BUTTON: CERTIFICATES & CREDENTIALS -->
         <section class="archive-card secondary-card" id="openCertsBtn">
             <div class="card-icon">📜</div>
             <div class="archive-info">
                 <h2>Certificates & Credentials</h2>
-                <p>Tap to verify accredited certifications from IBM, freeCodeCamp, and Coursera, etc.</p>
+                <p>Tap to verify accredited certifications, online courses, & more.</p>
+            </div>
+        </section>
+
+        <section class="archive-card secondary-card" id="openArtsBtn">
+            <div class="card-icon">🎤</div>
+            <div class="archive-info">
+                <h2>Creative & Sonic Arts</h2>
+                <p>Tap to watch original songs, vocal covers, and performance highlights.</p>
+            </div>
+        </section>
+
+        <section class="archive-card secondary-card" id="openProcessBtn">
+            <div class="card-icon">🎥</div>
+            <div class="archive-info">
+                <h2>Coding Process & Vibe</h2>
+                <p>Tap to watch screen recordings of live web architecture creation.</p>
             </div>
         </section>
 
@@ -79,9 +94,7 @@
             <button class="close-btn" id="closeMandala">&times;</button>
             <h2>Mandala & Floral Geometry</h2>
             <p class="modal-quote">“Dreams come true if na fight. Fight the fight; make you no go tire.”</p>
-            <div class="gallery-grid" id="mandalaGallery">
-                <!-- Loaded dynamically via script.js -->
-            </div>
+            <div class="gallery-grid" id="mandalaGallery"></div>
         </div>
     </div>
 
@@ -91,9 +104,7 @@
             <button class="close-btn" id="closeLab">&times;</button>
             <h2>Frontend Laboratory</h2>
             <p class="modal-desc">Web engineering projects, code repositories, and technical skills.</p>
-            <div class="projects-list" id="projectsList">
-                <!-- Loaded dynamically via script.js -->
-            </div>
+            <div class="projects-list" id="projectsList"></div>
         </div>
     </div>
 
@@ -102,10 +113,28 @@
         <div class="modal-content">
             <button class="close-btn" id="closeCerts">&times;</button>
             <h2>Verified Credentials</h2>
-            <p class="modal-desc">Professional certifications, specialized diplomas, and accredited technical badges.</p>
-            <div class="projects-list" id="certsList">
-                <!-- Loaded dynamically via script.js -->
-            </div>
+            <p class="modal-desc">Professional certifications, specialized diplomas, online courses, etc.</p>
+            <div class="projects-list" id="certsList"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: CREATIVE ARTS -->
+    <div class="modal-overlay" id="artsModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeArts">&times;</button>
+            <h2>Creative & Sonic Arts</h2>
+            <p class="modal-desc">Original music composition, vocal performances, and artistic expressions.</p>
+            <div class="projects-list" id="artsList"></div>
+        </div>
+    </div>
+
+    <!-- MODAL 5: CODING PROCESS -->
+    <div class="modal-overlay" id="processModal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeProcess">&times;</button>
+            <h2>Coding Process & Vibe</h2>
+            <p class="modal-desc">Behind-the-scenes screen recordings of live development sessions.</p>
+            <div class="projects-list" id="processList"></div>
         </div>
     </div>
 
