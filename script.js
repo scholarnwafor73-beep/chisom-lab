@@ -1,98 +1,90 @@
-// 1. STARFIELD PARTICLE ENGINE
-const canvas = document.getElementById('starfieldCanvas');
-const ctx = canvas.getContext('2d');
+// --- BULLETPROOF AUDIO & VINYL PLAYER ---
+const playBtn = document.getElementById('playBtn');
+const culturalAudio = document.getElementById('culturalAudio');
+const vinylDisc = document.getElementById('vinylDisc');
 
-let particles = [];
-const particleCount = 65;
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-class Particle {
-    constructor() {
-        this.reset();
-    }
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.color = Math.random() > 0.5 ? '#f59e0b' : '#06b6d4';
-        this.alpha = Math.random() * 0.7 + 0.2;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            this.reset();
+playBtn.addEventListener('click', async () => {
+    try {
+        if (culturalAudio.paused) {
+            await culturalAudio.play();
+            vinylDisc.classList.add('spinning');
+            playBtn.textContent = 'PAUSE ARCHIVE';
+        } else {
+            culturalAudio.pause();
+            vinylDisc.classList.remove('spinning');
+            playBtn.textContent = 'PLAY ARCHIVE';
         }
-    }
-    draw() {
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-    }
-}
-
-for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-}
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-// 2. INTERACTIVE PROVERB FADER
-const proverbs = [
-    '"Egwu ma mma, a naa n\'uba." — Music brings beauty to life.',
-    '"Oganiru na-amalite n\'uche." — Innovation starts in the mind.',
-    '"Nka na Uzụ." — Craft, technology, and artistic creation.',
-    '"Chisom-Lab: Where future code meets living culture."'
-];
-let proverbIndex = 0;
-const proverbDisplay = document.getElementById('proverbDisplay');
-
-setInterval(() => {
-    proverbDisplay.style.opacity = '0';
-    setTimeout(() => {
-        proverbIndex = (proverbIndex + 1) % proverbs.length;
-        proverbDisplay.textContent = proverbs[proverbIndex];
-        proverbDisplay.style.opacity = '1';
-    }, 800);
-}, 5000);
-
-// 3. VINYL PLAYER TOGGLE
-const playBtn = document.getElementById('playAudioBtn');
-const vinyl = document.getElementById('vinylRecord');
-let isPlaying = false;
-
-playBtn.addEventListener('click', () => {
-    isPlaying = !isPlaying;
-    if (isPlaying) {
-        vinyl.style.animationPlayState = 'running';
-        playBtn.textContent = 'PAUSE ARCHIVE';
-        playBtn.style.background = 'linear-gradient(135deg, #06b6d4, #a855f7)';
-        playBtn.style.color = '#ffffff';
-    } else {
-        vinyl.style.animationPlayState = 'paused';
-        playBtn.textContent = 'PLAY ARCHIVE';
-        playBtn.style.background = 'linear-gradient(135deg, var(--gold-glow), var(--gold-light))';
-        playBtn.style.color = '#000000';
+    } catch (err) {
+        console.error("Playback restriction error:", err);
+        playBtn.textContent = 'TAP TO RETRY';
     }
 });
+
+// Clean automatic state reset when audio ends naturally
+culturalAudio.addEventListener('ended', () => {
+    culturalAudio.currentTime = 0;
+    vinylDisc.classList.remove('spinning');
+    playBtn.textContent = 'PLAY ARCHIVE';
+});
+
+// --- IGBO PROVERB ROTATOR ---
+const proverbs = [
+    '"Egwu ma mma, a naa n\'uba." — Sound & culture woven into code.',
+    '"Onye qba qsa ma aqa ya." — Wisdom begins with understanding your roots.',
+    '"Nku di na mba na-ereere mba nsi." — Diversity builds extraordinary art.',
+    '"Awa ma efe, a na-akpq ya Odogwu." — Greatness is recognized by its movement.'
+];
+
+let proverbIndex = 0;
+const proverbBox = document.getElementById('proverb-box');
+
+setInterval(() => {
+    proverbBox.style.opacity = '0';
+    setTimeout(() => {
+        proverbIndex = (proverbIndex + 1) % proverbs.length;
+        proverbBox.textContent = proverbs[proverbIndex];
+        proverbBox.style.opacity = '1';
+    }, 400);
+}, 6000);
+
+// --- OPTIMIZED STARFIELD CANVAS ANIMATION ---
+const canvas = document.getElementById('starfield');
+const ctx = canvas.getContext('2d');
+
+let width, height;
+
+function resizeCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const stars = Array.from({ length: 50 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    radius: Math.random() * 1.4 + 0.4,
+    speed: Math.random() * 0.25 + 0.08,
+    opacity: Math.random()
+}));
+
+function animateStars() {
+    ctx.clearRect(0, 0, width, height);
+    
+    stars.forEach(star => {
+        star.y -= star.speed;
+        if (star.y < 0) star.y = height;
+        
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${star.opacity})`;
+        ctx.fill();
+    });
+    
+    requestAnimationFrame(animateStars);
+}
+
+animateStars();
