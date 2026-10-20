@@ -167,7 +167,7 @@ h1 {
     background: linear-gradient(135deg, #ff007f, #00f0ff);
     border-radius: 50%;
     color: #ffffff;
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     font-weight: 900;
     display: flex;
     align-items: center;
@@ -238,7 +238,6 @@ h1 {
     box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
 }
 
-/* CLEAN, SPACIOUS MODAL DESIGN */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -419,4 +418,4 @@ footer {
     color: #00f0ff;
     opacity: 0.7;
     z-index: 1;
-    }
+        }
