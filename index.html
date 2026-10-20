@@ -3,73 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHISOM-LAB | Sonic Archive & Digital Art</title>
-    <!-- Modern Clean Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=stylesheet" rel="stylesheet">
-    <!-- Link to external stylesheet -->
+    <title>Chisom-Lab | Cultural Sonic Archive</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="starfield"></canvas>
 
-    <!-- Background Layers -->
-    <canvas id="starfieldCanvas"></canvas>
-    <div class="mandala-bg"></div>
-
-    <!-- Main Content Container -->
-    <div class="app-container">
-
-        <header>
-            <span class="brand-badge">Aesthetic & Technology</span>
-            <h1 class="brand-title">CHISOM-LAB</h1>
-            <p class="brand-sub">Where ancient folklore meets high-end frontend craftsmanship.</p>
+    <main class="container">
+        <header class="hero">
+            <span class="badge">AESTHETIC & TECHNOLOGY</span>
+            <h1>CHISOM-LAB</h1>
+            <p class="subtitle">Where ancient Igbo heritage meets high-end frontend craftsmanship.</p>
+            <div id="proverb-box" class="proverb">"Egwu ma mma, a naa n'uba." — Sound & culture woven into code.</div>
         </header>
 
-        <!-- Dynamic Proverbs & Quotes -->
-        <div class="proverb-box">
-            <span class="proverb-text" id="proverbDisplay">"Egwu ma mma, a naa n'uba." — Sound & culture woven into code.</span>
-        </div>
-
-        <!-- Centerpiece: Vinyl Record Player -->
-        <div class="centerpiece-card">
-            <div class="vinyl-wrapper">
-                <div class="vinyl-record" id="vinylRecord">
-                    <div class="vinyl-grooves"></div>
-                    <div class="vinyl-center-label">CHISOM</div>
+        <section class="archive-card">
+            <div class="vinyl-container">
+                <div class="vinyl-disc" id="vinylDisc">
+                    <div class="vinyl-label">CHISOM</div>
                 </div>
             </div>
-            <div class="track-title" id="trackName">Sonic Archive Vol. I</div>
-            <div class="track-sub">Original Audio Experience • Tap to Play</div>
-            <button class="play-btn" id="playAudioBtn">PLAY ARCHIVE</button>
-        </div>
-
-        <!-- Portfolio Showcase Cards -->
-        <div class="grid-section">
-            <div class="grid-card">
-                <div class="card-icon">🎵</div>
-                <h2 class="card-title">Sonic Archive</h2>
-                <p class="card-desc">An interactive soundscape blending original music, vocal textures, and traditional Igbo folklore narratives.</p>
+            
+            <div class="archive-info">
+                <h2>Odogwu Sound Archive Vol. I</h2>
+                <p>Ogene & Igbo Cultural Soundscape • Tap to Play</p>
             </div>
 
-            <div class="grid-card">
-                <div class="card-icon">🌀</div>
-                <h2 class="card-title">Mandala & Geometry</h2>
-                <p class="card-desc">Hand-drawn intricate pattern sketches transformed into interactive glowing web visualizers.</p>
-            </div>
+            <!-- Preloaded robust audio stream with cross-origin safety -->
+            <audio id="culturalAudio" crossorigin="anonymous" preload="auto">
+                <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=african-drums-113200.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            <button class="play-btn" id="playBtn" type="button">PLAY ARCHIVE</button>
+        </section>
+    </main>
 
-            <div class="grid-card">
-                <div class="card-icon">💻</div>
-                <h2 class="card-title">Frontend Laboratory</h2>
-                <p class="card-desc">Clean, responsive web development built with HTML, CSS, JavaScript, and modern design logic.</p>
-            </div>
-        </div>
+    <footer>
+        <p>DESIGNED & DEVELOPED BY CHISOM • 2026</p>
+    </footer>
 
-        <footer>
-            DESIGNED & DEVELOPED BY CHISOM • 2026
-        </footer>
-
-    </div>
-
-    <!-- Link to external script file -->
     <script src="script.js"></script>
 </body>
 </html>
