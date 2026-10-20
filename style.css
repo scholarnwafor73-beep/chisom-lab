@@ -2,18 +2,18 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-    background-color: #08080a;
+    background-color: #040406;
     color: #f4f4f6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 1rem;
+    padding: 2.5rem 1rem;
     overflow-x: hidden;
     position: relative;
 }
@@ -35,60 +35,96 @@ body {
     z-index: 1;
     position: relative;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .hero {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .badge {
     display: inline-block;
     font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: #d4af37;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    padding: 0.3rem 0.8rem;
+    letter-spacing: 2.5px;
+    color: #00f0ff;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    padding: 0.35rem 1rem;
     border-radius: 20px;
-    margin-bottom: 0.8rem;
-    background: rgba(212, 175, 55, 0.05);
+    margin-bottom: 0.9rem;
+    background: rgba(0, 240, 255, 0.08);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
 }
 
 h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, #f4f4f6 30%, #d4af37 100%);
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #00f0ff 0%, #ff007f 50%, #ffd700 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 20px rgba(255, 0, 127, 0.35));
 }
 
 .subtitle {
     font-size: 0.9rem;
-    color: #9ba1a6;
+    color: #a0a5bc;
     margin-bottom: 0.8rem;
     line-height: 1.4;
 }
 
 .proverb {
-    font-size: 0.82rem;
-    color: #d4af37;
+    font-size: 0.85rem;
+    color: #00f0ff;
     font-style: italic;
     min-height: 2.8em;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: opacity 0.4s ease-in-out;
-    padding: 0 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
 }
 
 .archive-card {
-    background: rgba(18, 18, 24, 0.85);
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    background: rgba(10, 10, 18, 0.85);
+    border: 1px solid rgba(255, 0, 127, 0.35);
     border-radius: 24px;
-    padding: 2rem 1.25rem;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.06);
+    padding: 2rem 1.4rem;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 
+                0 0 25px rgba(0, 240, 255, 0.12), 
+                inset 0 0 15px rgba(255, 0, 127, 0.08);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.archive-card:hover {
+    border-color: #00f0ff;
+    transform: translateY(-2px);
+}
+
+.secondary-card {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: left;
+    padding: 1.4rem 1.4rem;
+    border-color: rgba(0, 240, 255, 0.25);
+}
+
+.card-icon {
+    font-size: 2rem;
+    background: rgba(0, 240, 255, 0.1);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    flex-shrink: 0;
 }
 
 .vinyl-container {
@@ -98,23 +134,25 @@ h1 {
 }
 
 .vinyl-disc {
-    width: 135px;
-    height: 135px;
-    background: radial-gradient(circle, #222 0%, #111 70%, #000 100%);
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle, #1a1a26 0%, #0c0c14 70%, #000 100%);
     border-radius: 50%;
-    border: 5px solid #1a1a22;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.2);
+    border: 5px solid #00f0ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9), 
+                0 0 20px rgba(0, 240, 255, 0.4),
+                inset 0 0 25px rgba(255, 0, 127, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.5s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .vinyl-disc.spinning {
     animation: spin 3s linear infinite;
-    border-color: #d4af37;
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+    border-color: #ff007f;
+    box-shadow: 0 0 35px rgba(255, 0, 127, 0.7), 0 0 15px rgba(0, 240, 255, 0.5);
 }
 
 @keyframes spin {
@@ -123,23 +161,24 @@ h1 {
 }
 
 .vinyl-label {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #d4af37, #aa7c11);
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #ff007f, #00f0ff);
     border-radius: 50%;
-    color: #08080a;
-    font-size: 0.55rem;
+    color: #ffffff;
+    font-size: 0.5rem;
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
     letter-spacing: 1px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
 }
 
 .archive-info h2 {
     font-size: 1.05rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.25rem;
     color: #f4f4f6;
 }
@@ -147,22 +186,26 @@ h1 {
 .archive-info p {
     font-size: 0.78rem;
     color: #9ba1a6;
+    line-height: 1.35;
+}
+
+.archive-card .archive-info p {
     margin-bottom: 1.25rem;
 }
 
 .play-btn {
     width: 100%;
-    background: linear-gradient(135deg, #d4af37, #b89728);
-    color: #08080a;
+    background: linear-gradient(135deg, #ff007f 0%, #00f0ff 100%);
+    color: #040406;
     border: none;
-    padding: 0.9rem;
+    padding: 0.95rem;
     font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    border-radius: 12px;
+    font-weight: 900;
+    letter-spacing: 1.8px;
+    border-radius: 14px;
     cursor: pointer;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4), 0 0 15px rgba(0, 240, 255, 0.3);
 }
 
 .play-btn:active {
@@ -170,9 +213,10 @@ h1 {
 }
 
 footer {
-    margin-top: 1.5rem;
-    font-size: 0.6rem;
-    letter-spacing: 2px;
-    color: #666;
+    margin-top: 2rem;
+    font-size: 0.62rem;
+    letter-spacing: 2.5px;
+    color: #00f0ff;
+    opacity: 0.7;
     z-index: 1;
 }
