@@ -1,0 +1,309 @@
+:root {
+    --bg-pitch: #030305;
+    --gold-glow: #f59e0b;
+    --gold-light: #fbbf24;
+    --cyan-neon: #06b6d4;
+    --purple-neon: #a855f7;
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --glass-card: rgba(15, 23, 42, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-pitch);
+    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fullscreen Interactive Canvas for Starfield Particles */
+#starfieldCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Pulsing Background Mandala Layer */
+.mandala-bg {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(80vw, 600px);
+    height: min(80vw, 600px);
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 70%);
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+    animation: pulseMandala 8s infinite alternate ease-in-out;
+    filter: blur(40px);
+}
+
+@keyframes pulseMandala {
+    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.4; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+}
+
+/* Main Container - Optimized for Phone, iPad, and Laptop */
+.app-container {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.brand-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 9999px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+h1.brand-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ffffff 0%, var(--gold-light) 50%, var(--purple-neon) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 40px rgba(245, 158, 11, 0.2);
+}
+
+p.brand-sub {
+    color: var(--text-sub);
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Interactive Quote/Proverb Fader */
+.proverb-box {
+    margin: 0.5rem 0 2.5rem 0;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.proverb-text {
+    font-style: italic;
+    color: var(--cyan-neon);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: opacity 0.8s ease-in-out;
+    opacity: 1;
+    text-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+}
+
+/* CENTERPIECE: Rotating Vinyl Player Card */
+.centerpiece-card {
+    width: 100%;
+    max-width: 500px;
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    margin-bottom: 4rem;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.centerpiece-card:hover {
+    border-color: rgba(245, 158, 11, 0.4);
+    box-shadow: 0 20px 50px rgba(245, 158, 11, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Vinyl Graphic */
+.vinyl-wrapper {
+    position: relative;
+    width: min(65vw, 220px);
+    height: min(65vw, 220px);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vinyl-record {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1e293b 0%, #0f172a 30%, #020617 70%, #000000 100%);
+    border: 4px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 0 12px rgba(255, 255, 255, 0.02);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spinVinyl 10s linear infinite;
+    animation-play-state: paused;
+}
+
+.vinyl-grooves {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.vinyl-center-label {
+    width: 35%;
+    height: 35%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-glow), var(--purple-neon));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+@keyframes spinVinyl {
+    100% { transform: rotate(360deg); }
+}
+
+/* Controls Button */
+.play-btn {
+    background: linear-gradient(135deg, var(--gold-glow), var(--gold-light));
+    color: #000;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    padding: 0.9rem 2.2rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.play-btn:active {
+    transform: scale(0.95);
+}
+
+.track-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--text-main);
+}
+
+.track-sub {
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    margin-bottom: 1.5rem;
+}
+
+/* Portfolio Grid Section */
+.grid-section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.8rem;
+}
+
+.grid-card {
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(15px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan-neon), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.grid-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(6, 182, 212, 0.4);
+}
+
+.grid-card:hover::before {
+    opacity: 1;
+}
+
+.card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--text-main);
+}
+
+.card-desc {
+    color: var(--text-sub);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+/* Footer */
+footer {
+    margin-top: 5rem;
+    color: var(--text-sub);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-align: center;
+}
