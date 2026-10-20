@@ -32,13 +32,12 @@ const myCodingProcess = [
 ];
 
 // ==========================================
-// AUDIO & VINYL PLAYER LOGIC (AUTOPLAY OJA)
+// AUDIO & VINYL PLAYER LOGIC (AUTOPLAY OJA - NO LOOP)
 // ==========================================
 const playBtn = document.getElementById('playBtn');
 const culturalAudio = document.getElementById('culturalAudio');
 const vinylDisc = document.getElementById('vinylDisc');
 
-// Attempt automatic playback on page load
 window.addEventListener('load', () => {
     culturalAudio.play().then(() => {
         vinylDisc.classList.add('spinning');
@@ -46,14 +45,14 @@ window.addEventListener('load', () => {
         activeMode = 'sprinklers';
         updateModeButtons();
     }).catch(err => {
-        console.log("Autoplay blocked by browser policy; waiting for user interaction.", err);
+        console.log("Autoplay restricted by browser policy; waiting for user interaction.", err);
         playBtn.textContent = 'PLAY ARCHIVE';
     });
 });
 
 playBtn.addEventListener('click', async () => {
     try {
-        culturalAudio.currentTime = 0; // Restart from beginning
+        culturalAudio.currentTime = 0; 
         await culturalAudio.play();
         vinylDisc.classList.add('spinning');
         playBtn.textContent = 'PLAYING...';
@@ -65,7 +64,6 @@ playBtn.addEventListener('click', async () => {
     }
 });
 
-// When the short hailing sound ends, stop spinning
 culturalAudio.addEventListener('ended', () => {
     vinylDisc.classList.remove('spinning');
     playBtn.textContent = 'PLAY AGAIN';
@@ -161,20 +159,22 @@ document.getElementById('processList').innerHTML = myCodingProcess.map(proc => `
     </div>
 `).join('');
 
-// Bind Modal Events
+// Bind Modal Events Safely
 Object.values(modals).forEach(m => {
-    m.btn.addEventListener('click', () => m.modal.classList.add('active'));
-    m.close.addEventListener('click', () => m.modal.classList.remove('active'));
+    if (m.btn && m.modal && m.close) {
+        m.btn.addEventListener('click', () => m.modal.classList.add('active'));
+        m.close.addEventListener('click', () => m.modal.classList.remove('active'));
+    }
 });
 
 window.addEventListener('click', (e) => {
     Object.values(modals).forEach(m => {
-        if (e.target === m.modal) m.modal.classList.remove('active');
+        if (m.modal && e.target === m.modal) m.modal.classList.remove('active');
     });
 });
 
 // ==========================================
-// ANIMATION CANVAS ENGINE (BUG FIXED)
+// ANIMATION CANVAS ENGINE
 // ==========================================
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
@@ -227,7 +227,7 @@ function createSprinklerBurst(x, y) {
             x: x,
             y: y,
             vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 1, // Bug fixed here!
+            vy: Math.sin(angle) * speed - 1,
             radius: Math.random() * 2.5 + 1,
             color: colors[Math.floor(Math.random() * colors.length)],
             alpha: 1,
