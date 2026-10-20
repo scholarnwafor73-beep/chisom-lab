@@ -2,12 +2,10 @@
 // EASY DATA ARRAYS (CHISOM'S CONTENT LISTS)
 // ==========================================
 
-// 1. MANDALA ARTWORK LIST
 const myMandalaImages = [
     { src: "mandala1.jpg", caption: "Floral Geometry Vol. I — Hand Sketch" }
 ];
 
-// 2. LIVE CODE PROJECTS LIST
 const myProjectsAndSkills = [
     { title: "Aegis AI Inspector", tag: "AI Security & Tech", link: "https://scholarnwafor73-beep.github.io/Aegis-ai-inspector-/" },
     { title: "Luxe Multi-Studio", tag: "Creative Studio Architecture", link: "https://scholarnwafor73-beep.github.io/luxe-multi-studio/" },
@@ -16,43 +14,61 @@ const myProjectsAndSkills = [
     { title: "HTML5, CSS3 & JavaScript", tag: "Frontend Skill Stack", link: "#" }
 ];
 
-// 3. CERTIFICATES & CREDENTIALS LIST (ADD YOUR CERTS HERE!)
 const myCertificates = [
     { title: "Responsive Web Design", tag: "freeCodeCamp Certified", link: "#" },
     { title: "AI Security & Tech Fundamentals", tag: "IBM Verified Professional", link: "#" },
-    { title: "Frontend Engineering Mastery", tag: "Coursera Specialization", link: "#" }
+    { title: "Frontend Engineering Mastery", tag: "Coursera Specialization", link: "#" },
+    { title: "Additional Online Coursework", tag: "Specialized Training & More", link: "#" }
+];
+
+const myCreativeArts = [
+    { title: "Original Song Performance", tag: "Vocals & Composition", link: "#" },
+    { title: "Church Worship Cover", tag: "Live Vocal Session", link: "#" }
+];
+
+const myCodingProcess = [
+    { title: "Building Chisom-Lab Live", tag: "HTML/CSS/JS Time-Lapse", link: "#" },
+    { title: "Canvas Particle Engine Build", tag: "JavaScript Logic Session", link: "#" }
 ];
 
 // ==========================================
-// AUDIO & VINYL PLAYER LOGIC
+// AUDIO & VINYL PLAYER LOGIC (AUTOPLAY OJA)
 // ==========================================
 const playBtn = document.getElementById('playBtn');
 const culturalAudio = document.getElementById('culturalAudio');
 const vinylDisc = document.getElementById('vinylDisc');
 
+// Attempt automatic playback on page load
+window.addEventListener('load', () => {
+    culturalAudio.play().then(() => {
+        vinylDisc.classList.add('spinning');
+        playBtn.textContent = 'PLAY AGAIN';
+        activeMode = 'sprinklers';
+        updateModeButtons();
+    }).catch(err => {
+        console.log("Autoplay blocked by browser policy; waiting for user interaction.", err);
+        playBtn.textContent = 'PLAY ARCHIVE';
+    });
+});
+
 playBtn.addEventListener('click', async () => {
     try {
-        if (culturalAudio.paused) {
-            await culturalAudio.play();
-            vinylDisc.classList.add('spinning');
-            playBtn.textContent = 'PAUSE ARCHIVE';
-            activeMode = 'sprinklers'; 
-            updateModeButtons();
-        } else {
-            culturalAudio.pause();
-            vinylDisc.classList.remove('spinning');
-            playBtn.textContent = 'PLAY ARCHIVE';
-        }
+        culturalAudio.currentTime = 0; // Restart from beginning
+        await culturalAudio.play();
+        vinylDisc.classList.add('spinning');
+        playBtn.textContent = 'PLAYING...';
+        activeMode = 'sprinklers'; 
+        updateModeButtons();
     } catch (err) {
-        console.warn("Retrying playback via fallback...", err);
-        culturalAudio.load();
-        culturalAudio.play().then(() => {
-            vinylDisc.classList.add('spinning');
-            playBtn.textContent = 'PAUSE ARCHIVE';
-        }).catch(() => {
-            playBtn.textContent = 'TAP AGAIN TO PLAY';
-        });
+        console.warn("Playback failed:", err);
+        playBtn.textContent = 'TAP AGAIN TO PLAY';
     }
+});
+
+// When the short hailing sound ends, stop spinning
+culturalAudio.addEventListener('ended', () => {
+    vinylDisc.classList.remove('spinning');
+    playBtn.textContent = 'PLAY AGAIN';
 });
 
 // ==========================================
@@ -80,21 +96,16 @@ setInterval(() => {
 // ==========================================
 // MODAL POPUP SYSTEM (STRICT TAP CONTROL)
 // ==========================================
-const mandalaModal = document.getElementById('mandalaModal');
-const labModal = document.getElementById('labModal');
-const certsModal = document.getElementById('certsModal');
-
-const openMandalaBtn = document.getElementById('openMandalaBtn');
-const openLabBtn = document.getElementById('openLabBtn');
-const openCertsBtn = document.getElementById('openCertsBtn');
-
-const closeMandala = document.getElementById('closeMandala');
-const closeLab = document.getElementById('closeLab');
-const closeCerts = document.getElementById('closeCerts');
+const modals = {
+    mandala: { btn: document.getElementById('openMandalaBtn'), modal: document.getElementById('mandalaModal'), close: document.getElementById('closeMandala') },
+    lab: { btn: document.getElementById('openLabBtn'), modal: document.getElementById('labModal'), close: document.getElementById('closeLab') },
+    certs: { btn: document.getElementById('openCertsBtn'), modal: document.getElementById('certsModal'), close: document.getElementById('closeCerts') },
+    arts: { btn: document.getElementById('openArtsBtn'), modal: document.getElementById('artsModal'), close: document.getElementById('closeArts') },
+    process: { btn: document.getElementById('openProcessBtn'), modal: document.getElementById('processModal'), close: document.getElementById('closeProcess') }
+};
 
 // Render Mandalas
-const mandalaGallery = document.getElementById('mandalaGallery');
-mandalaGallery.innerHTML = myMandalaImages.map(img => `
+document.getElementById('mandalaGallery').innerHTML = myMandalaImages.map(img => `
     <div class="mandala-img-card">
         <img src="${img.src}" alt="${img.caption}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="mandala-placeholder-box" style="display:none;">
@@ -107,8 +118,7 @@ mandalaGallery.innerHTML = myMandalaImages.map(img => `
 `).join('');
 
 // Render Projects
-const projectsList = document.getElementById('projectsList');
-projectsList.innerHTML = myProjectsAndSkills.map(item => `
+document.getElementById('projectsList').innerHTML = myProjectsAndSkills.map(item => `
     <div class="project-item">
         <div>
             <div class="project-item-title">${item.title}</div>
@@ -119,8 +129,7 @@ projectsList.innerHTML = myProjectsAndSkills.map(item => `
 `).join('');
 
 // Render Certificates
-const certsList = document.getElementById('certsList');
-certsList.innerHTML = myCertificates.map(cert => `
+document.getElementById('certsList').innerHTML = myCertificates.map(cert => `
     <div class="project-item">
         <div>
             <div class="project-item-title">${cert.title}</div>
@@ -130,24 +139,42 @@ certsList.innerHTML = myCertificates.map(cert => `
     </div>
 `).join('');
 
-// Open/Close Handlers
-openMandalaBtn.addEventListener('click', () => mandalaModal.classList.add('active'));
-closeMandala.addEventListener('click', () => mandalaModal.classList.remove('active'));
+// Render Creative Arts
+document.getElementById('artsList').innerHTML = myCreativeArts.map(art => `
+    <div class="project-item">
+        <div>
+            <div class="project-item-title">${art.title}</div>
+            <div class="project-item-tag">${art.tag}</div>
+        </div>
+        <a href="${art.link}" target="_blank" class="project-link-btn">Watch</a>
+    </div>
+`).join('');
 
-openLabBtn.addEventListener('click', () => labModal.classList.add('active'));
-closeLab.addEventListener('click', () => labModal.classList.remove('active'));
+// Render Coding Process
+document.getElementById('processList').innerHTML = myCodingProcess.map(proc => `
+    <div class="project-item">
+        <div>
+            <div class="project-item-title">${proc.title}</div>
+            <div class="project-item-tag">${proc.tag}</div>
+        </div>
+        <a href="${proc.link}" target="_blank" class="project-link-btn">Watch</a>
+    </div>
+`).join('');
 
-openCertsBtn.addEventListener('click', () => certsModal.classList.add('active'));
-closeCerts.addEventListener('click', () => certsModal.classList.remove('active'));
+// Bind Modal Events
+Object.values(modals).forEach(m => {
+    m.btn.addEventListener('click', () => m.modal.classList.add('active'));
+    m.close.addEventListener('click', () => m.modal.classList.remove('active'));
+});
 
 window.addEventListener('click', (e) => {
-    if (e.target === mandalaModal) mandalaModal.classList.remove('active');
-    if (e.target === labModal) labModal.classList.remove('active');
-    if (e.target === certsModal) certsModal.classList.remove('active');
+    Object.values(modals).forEach(m => {
+        if (e.target === m.modal) m.modal.classList.remove('active');
+    });
 });
 
 // ==========================================
-// ANIMATION CANVAS ENGINE
+// ANIMATION CANVAS ENGINE (BUG FIXED)
 // ==========================================
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
@@ -200,7 +227,7 @@ function createSprinklerBurst(x, y) {
             x: x,
             y: y,
             vx: Math.cos(angle) * speed,
-            vy: Sin = Math.sin(angle) * speed - 1,
+            vy: Math.sin(angle) * speed - 1, // Bug fixed here!
             radius: Math.random() * 2.5 + 1,
             color: colors[Math.floor(Math.random() * colors.length)],
             alpha: 1,
