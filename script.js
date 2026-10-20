@@ -1,17 +1,26 @@
 // ==========================================
-// EASY DATA ARRAYS (CHISOM'S LIVE PROJECTS)
+// EASY DATA ARRAYS (CHISOM'S CONTENT LISTS)
 // ==========================================
 
+// 1. MANDALA ARTWORK LIST
 const myMandalaImages = [
     { src: "mandala1.jpg", caption: "Floral Geometry Vol. I — Hand Sketch" }
 ];
 
+// 2. LIVE CODE PROJECTS LIST
 const myProjectsAndSkills = [
     { title: "Aegis AI Inspector", tag: "AI Security & Tech", link: "https://scholarnwafor73-beep.github.io/Aegis-ai-inspector-/" },
     { title: "Luxe Multi-Studio", tag: "Creative Studio Architecture", link: "https://scholarnwafor73-beep.github.io/luxe-multi-studio/" },
     { title: "Luxe Multi-Pitch", tag: "Luxury Pitch Deck Framework", link: "https://scholarnwafor73-beep.github.io/luxe-multi-pitch/" },
     { title: "Chisom-Lab Portfolio", tag: "Live Web Architecture", link: "https://scholarnwafor73-beep.github.io/chisom-lab/" },
     { title: "HTML5, CSS3 & JavaScript", tag: "Frontend Skill Stack", link: "#" }
+];
+
+// 3. CERTIFICATES & CREDENTIALS LIST (ADD YOUR CERTS HERE!)
+const myCertificates = [
+    { title: "Responsive Web Design", tag: "freeCodeCamp Certified", link: "#" },
+    { title: "AI Security & Tech Fundamentals", tag: "IBM Verified Professional", link: "#" },
+    { title: "Frontend Engineering Mastery", tag: "Coursera Specialization", link: "#" }
 ];
 
 // ==========================================
@@ -73,14 +82,17 @@ setInterval(() => {
 // ==========================================
 const mandalaModal = document.getElementById('mandalaModal');
 const labModal = document.getElementById('labModal');
+const certsModal = document.getElementById('certsModal');
 
 const openMandalaBtn = document.getElementById('openMandalaBtn');
 const openLabBtn = document.getElementById('openLabBtn');
+const openCertsBtn = document.getElementById('openCertsBtn');
 
 const closeMandala = document.getElementById('closeMandala');
 const closeLab = document.getElementById('closeLab');
+const closeCerts = document.getElementById('closeCerts');
 
-// Render Mandalas (Displays clean custom placeholder if image is missing)
+// Render Mandalas
 const mandalaGallery = document.getElementById('mandalaGallery');
 mandalaGallery.innerHTML = myMandalaImages.map(img => `
     <div class="mandala-img-card">
@@ -106,26 +118,32 @@ projectsList.innerHTML = myProjectsAndSkills.map(item => `
     </div>
 `).join('');
 
+// Render Certificates
+const certsList = document.getElementById('certsList');
+certsList.innerHTML = myCertificates.map(cert => `
+    <div class="project-item">
+        <div>
+            <div class="project-item-title">${cert.title}</div>
+            <div class="project-item-tag">${cert.tag}</div>
+        </div>
+        <a href="${cert.link}" target="_blank" class="project-link-btn">Verify</a>
+    </div>
+`).join('');
+
 // Open/Close Handlers
-openMandalaBtn.addEventListener('click', () => {
-    mandalaModal.classList.add('active');
-});
+openMandalaBtn.addEventListener('click', () => mandalaModal.classList.add('active'));
+closeMandala.addEventListener('click', () => mandalaModal.classList.remove('active'));
 
-closeMandala.addEventListener('click', () => {
-    mandalaModal.classList.remove('active');
-});
+openLabBtn.addEventListener('click', () => labModal.classList.add('active'));
+closeLab.addEventListener('click', () => labModal.classList.remove('active'));
 
-openLabBtn.addEventListener('click', () => {
-    labModal.classList.add('active');
-});
-
-closeLab.addEventListener('click', () => {
-    labModal.classList.remove('active');
-});
+openCertsBtn.addEventListener('click', () => certsModal.classList.add('active'));
+closeCerts.addEventListener('click', () => certsModal.classList.remove('active'));
 
 window.addEventListener('click', (e) => {
     if (e.target === mandalaModal) mandalaModal.classList.remove('active');
     if (e.target === labModal) labModal.classList.remove('active');
+    if (e.target === certsModal) certsModal.classList.remove('active');
 });
 
 // ==========================================
@@ -182,7 +200,7 @@ function createSprinklerBurst(x, y) {
             x: x,
             y: y,
             vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 1,
+            vy: Sin = Math.sin(angle) * speed - 1,
             radius: Math.random() * 2.5 + 1,
             color: colors[Math.floor(Math.random() * colors.length)],
             alpha: 1,
