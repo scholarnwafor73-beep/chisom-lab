@@ -32,39 +32,58 @@ const myCodingProcess = [
 ];
 
 // ==========================================
-// AUDIO & VINYL PLAYER LOGIC (AUTOPLAY OJA - NO LOOP)
+// AUDIO & VINYL PLAYER LOGIC (AUTOPLAY & CLICK UNLOCK)
 // ==========================================
 const playBtn = document.getElementById('playBtn');
 const culturalAudio = document.getElementById('culturalAudio');
 const vinylDisc = document.getElementById('vinylDisc');
 
-window.addEventListener('load', () => {
-    culturalAudio.play().then(() => {
+let isPlaying = false;
+
+async function startPlayback() {
+    try {
+        await culturalAudio.play();
+        isPlaying = true;
         vinylDisc.classList.add('spinning');
-        playBtn.textContent = 'PLAY AGAIN';
+        playBtn.textContent = 'PLAYING AUDIO...';
         activeMode = 'sprinklers';
         updateModeButtons();
-    }).catch(err => {
-        console.log("Autoplay restricted by browser policy; waiting for user interaction.", err);
-        playBtn.textContent = 'PLAY ARCHIVE';
-    });
+    } catch (err) {
+        console.warn("Autoplay waiting for user gesture:", err);
+        playBtn.textContent = 'TAP HERE TO PLAY';
+    }
+}
+
+// Try playing immediately when the page loads
+window.addEventListener('load', () => {
+    startPlayback();
 });
 
-playBtn.addEventListener('click', async () => {
+// Unlock audio on the very first touch/click anywhere on the page
+window.addEventListener('pointerdown', () => {
+    if (!isPlaying) {
+        startPlayback();
+    }
+}, { once: true });
+
+playBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
     try {
-        culturalAudio.currentTime = 0; 
+        culturalAudio.currentTime = 0;
         await culturalAudio.play();
+        isPlaying = true;
         vinylDisc.classList.add('spinning');
-        playBtn.textContent = 'PLAYING...';
-        activeMode = 'sprinklers'; 
+        playBtn.textContent = 'PLAYING AUDIO...';
+        activeMode = 'sprinklers';
         updateModeButtons();
     } catch (err) {
-        console.warn("Playback failed:", err);
+        console.warn("Playback error:", err);
         playBtn.textContent = 'TAP AGAIN TO PLAY';
     }
 });
 
 culturalAudio.addEventListener('ended', () => {
+    isPlaying = false;
     vinylDisc.classList.remove('spinning');
     playBtn.textContent = 'PLAY AGAIN';
 });
@@ -201,7 +220,7 @@ function updateModeButtons() {
         modeSprinklersBtn.classList.remove('active');
     } else {
         modeSprinklersBtn.classList.add('active');
-        modeStarsBtn.classList.remove('active');
+        modeSprinklersBtn.classList.remove('active');
     }
 }
 
