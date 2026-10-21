@@ -1,5 +1,5 @@
 // ==========================================
-// EASY DATA ARRAYS (CHISOM'S CONTENT LISTS)
+// CHISOM'S CUSTOM DATA ARRAYS 
 // ==========================================
 
 const myMandalaImages = [
@@ -32,7 +32,7 @@ const myCodingProcess = [
 ];
 
 // ==========================================
-// AUDIO & VINYL PLAYER LOGIC (AUTOPLAY & CLICK UNLOCK)
+// AUDIO & VINYL PLAYER LOGIC 
 // ==========================================
 const playBtn = document.getElementById('playBtn');
 const culturalAudio = document.getElementById('culturalAudio');
@@ -40,46 +40,31 @@ const vinylDisc = document.getElementById('vinylDisc');
 
 let isPlaying = false;
 
-async function startPlayback() {
-    try {
-        await culturalAudio.play();
+function triggerAudioPlay() {
+    culturalAudio.currentTime = 0;
+    culturalAudio.play().then(() => {
         isPlaying = true;
         vinylDisc.classList.add('spinning');
         playBtn.textContent = 'PLAYING AUDIO...';
-        activeMode = 'sprinklers';
-        updateModeButtons();
-    } catch (err) {
-        console.warn("Autoplay waiting for user gesture:", err);
-        playBtn.textContent = 'TAP HERE TO PLAY';
-    }
+    }).catch(err => {
+        console.log("Autoplay waiting for user touch:", err);
+        playBtn.textContent = 'PLAY ARCHIVE';
+    });
 }
 
-// Try playing immediately when the page loads
-window.addEventListener('load', () => {
-    startPlayback();
+window.addEventListener('DOMContentLoaded', () => {
+    triggerAudioPlay();
 });
 
-// Unlock audio on the very first touch/click anywhere on the page
 window.addEventListener('pointerdown', () => {
     if (!isPlaying) {
-        startPlayback();
+        triggerAudioPlay();
     }
 }, { once: true });
 
-playBtn.addEventListener('click', async (e) => {
+playBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    try {
-        culturalAudio.currentTime = 0;
-        await culturalAudio.play();
-        isPlaying = true;
-        vinylDisc.classList.add('spinning');
-        playBtn.textContent = 'PLAYING AUDIO...';
-        activeMode = 'sprinklers';
-        updateModeButtons();
-    } catch (err) {
-        console.warn("Playback error:", err);
-        playBtn.textContent = 'TAP AGAIN TO PLAY';
-    }
+    triggerAudioPlay();
 });
 
 culturalAudio.addEventListener('ended', () => {
@@ -111,7 +96,7 @@ setInterval(() => {
 }, 6000);
 
 // ==========================================
-// MODAL POPUP SYSTEM (STRICT TAP CONTROL)
+// MODAL POPUP SYSTEM
 // ==========================================
 const modals = {
     mandala: { btn: document.getElementById('openMandalaBtn'), modal: document.getElementById('mandalaModal'), close: document.getElementById('closeMandala') },
@@ -121,7 +106,6 @@ const modals = {
     process: { btn: document.getElementById('openProcessBtn'), modal: document.getElementById('processModal'), close: document.getElementById('closeProcess') }
 };
 
-// Render Mandalas
 document.getElementById('mandalaGallery').innerHTML = myMandalaImages.map(img => `
     <div class="mandala-img-card">
         <img src="${img.src}" alt="${img.caption}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -134,7 +118,6 @@ document.getElementById('mandalaGallery').innerHTML = myMandalaImages.map(img =>
     </div>
 `).join('');
 
-// Render Projects
 document.getElementById('projectsList').innerHTML = myProjectsAndSkills.map(item => `
     <div class="project-item">
         <div>
@@ -145,7 +128,6 @@ document.getElementById('projectsList').innerHTML = myProjectsAndSkills.map(item
     </div>
 `).join('');
 
-// Render Certificates
 document.getElementById('certsList').innerHTML = myCertificates.map(cert => `
     <div class="project-item">
         <div>
@@ -156,7 +138,6 @@ document.getElementById('certsList').innerHTML = myCertificates.map(cert => `
     </div>
 `).join('');
 
-// Render Creative Arts
 document.getElementById('artsList').innerHTML = myCreativeArts.map(art => `
     <div class="project-item">
         <div>
@@ -167,7 +148,6 @@ document.getElementById('artsList').innerHTML = myCreativeArts.map(art => `
     </div>
 `).join('');
 
-// Render Coding Process
 document.getElementById('processList').innerHTML = myCodingProcess.map(proc => `
     <div class="project-item">
         <div>
@@ -178,7 +158,6 @@ document.getElementById('processList').innerHTML = myCodingProcess.map(proc => `
     </div>
 `).join('');
 
-// Bind Modal Events Safely
 Object.values(modals).forEach(m => {
     if (m.btn && m.modal && m.close) {
         m.btn.addEventListener('click', () => m.modal.classList.add('active'));
@@ -220,12 +199,22 @@ function updateModeButtons() {
         modeSprinklersBtn.classList.remove('active');
     } else {
         modeSprinklersBtn.classList.add('active');
-        modeSprinklersBtn.classList.remove('active');
+        modeStarsBtn.classList.remove('active');
     }
 }
 
-modeStarsBtn.addEventListener('click', () => { activeMode = 'stars'; updateModeButtons(); });
-modeSprinklersBtn.addEventListener('click', () => { activeMode = 'sprinklers'; updateModeButtons(); });
+modeStarsBtn.addEventListener('click', (e) => { 
+    e.stopPropagation();
+    activeMode = 'stars'; 
+    updateModeButtons(); 
+});
+
+modeSprinklersBtn.addEventListener('click', (e) => { 
+    e.stopPropagation();
+    activeMode = 'sprinklers'; 
+    updateModeButtons(); 
+    createSprinklerBurst(width / 2, height / 2);
+});
 
 const stars = Array.from({ length: 50 }, () => ({
     x: Math.random() * window.innerWidth,
@@ -239,9 +228,9 @@ const stars = Array.from({ length: 50 }, () => ({
 let sprinklers = [];
 
 function createSprinklerBurst(x, y) {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 25; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 4 + 1;
+        const speed = Math.random() * 5 + 1;
         sprinklers.push({
             x: x,
             y: y,
@@ -256,7 +245,9 @@ function createSprinklerBurst(x, y) {
 }
 
 window.addEventListener('pointerdown', (e) => {
-    createSprinklerBurst(e.clientX, e.clientY);
+    if (e.target.tagName !== 'BUTTON' && !e.target.closest('.modal-content')) {
+        createSprinklerBurst(e.clientX, e.clientY);
+    }
 });
 
 function animate() {
@@ -275,7 +266,7 @@ function animate() {
             ctx.fill();
         });
     } else {
-        if (Math.random() < 0.25) {
+        if (Math.random() < 0.3) {
             createSprinklerBurst(Math.random() * width, Math.random() * height * 0.7);
         }
     }
