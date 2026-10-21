@@ -172,7 +172,7 @@ window.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// ANIMATION CANVAS ENGINE
+// CLEAN STAR DUST CANVAS ENGINE
 // ==========================================
 const canvas = document.getElementById('starfield');
 const ctx = canvas.getContext('2d');
@@ -188,35 +188,8 @@ resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
 const colors = ['#00f0ff', '#ff007f', '#ffd700', '#ffffff', '#7000ff'];
-let activeMode = 'stars';
 
-const modeStarsBtn = document.getElementById('modeStars');
-const modeSprinklersBtn = document.getElementById('modeSprinklers');
-
-function updateModeButtons() {
-    if (activeMode === 'stars') {
-        modeStarsBtn.classList.add('active');
-        modeSprinklersBtn.classList.remove('active');
-    } else {
-        modeSprinklersBtn.classList.add('active');
-        modeStarsBtn.classList.remove('active');
-    }
-}
-
-modeStarsBtn.addEventListener('click', (e) => { 
-    e.stopPropagation();
-    activeMode = 'stars'; 
-    updateModeButtons(); 
-});
-
-modeSprinklersBtn.addEventListener('click', (e) => { 
-    e.stopPropagation();
-    activeMode = 'sprinklers'; 
-    updateModeButtons(); 
-    createSprinklerBurst(width / 2, height / 2);
-});
-
-const stars = Array.from({ length: 50 }, () => ({
+const stars = Array.from({ length: 60 }, () => ({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
     radius: Math.random() * 1.5 + 0.4,
@@ -225,72 +198,20 @@ const stars = Array.from({ length: 50 }, () => ({
     color: colors[Math.floor(Math.random() * colors.length)]
 }));
 
-let sprinklers = [];
-
-function createSprinklerBurst(x, y) {
-    for (let i = 0; i < 25; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 5 + 1;
-        sprinklers.push({
-            x: x,
-            y: y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 1,
-            radius: Math.random() * 2.5 + 1,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            alpha: 1,
-            decay: Math.random() * 0.02 + 0.015
-        });
-    }
-}
-
-window.addEventListener('pointerdown', (e) => {
-    if (e.target.tagName !== 'BUTTON' && !e.target.closest('.modal-content')) {
-        createSprinklerBurst(e.clientX, e.clientY);
-    }
-});
-
 function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    if (activeMode === 'stars') {
-        stars.forEach(star => {
-            star.y -= star.speed;
-            if (star.y < 0) star.y = height;
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            ctx.fillStyle = star.color;
-            ctx.globalAlpha = star.opacity;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = star.color;
-            ctx.fill();
-        });
-    } else {
-        if (Math.random() < 0.3) {
-            createSprinklerBurst(Math.random() * width, Math.random() * height * 0.7);
-        }
-    }
-
-    for (let i = sprinklers.length - 1; i >= 0; i--) {
-        let p = sprinklers[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.05;
-        p.alpha -= p.decay;
-
-        if (p.alpha <= 0) {
-            sprinklers.splice(i, 1);
-            continue;
-        }
-
+    stars.forEach(star => {
+        star.y -= star.speed;
+        if (star.y < 0) star.y = height;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = star.color;
+        ctx.globalAlpha = star.opacity;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = star.color;
         ctx.fill();
-    }
+    });
 
     ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
